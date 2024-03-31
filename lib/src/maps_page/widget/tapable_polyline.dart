@@ -23,9 +23,12 @@ class TappablePolyline extends StatelessWidget {
       );
     }
 
+    // TODO: IMPLEMENT FILLING THE POLYLINES
+
     return TappablePolylineLayer(
       polylines: polylines,
       onTap: (polylines, tapPosition) {
+        // TODO: Handle polyline tap
         print('Polyline tapped');
       },
     );

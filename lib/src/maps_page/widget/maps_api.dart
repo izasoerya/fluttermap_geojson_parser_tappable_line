@@ -15,8 +15,7 @@ class _MapsAPIState extends State<MapsAPI> {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: const MapOptions(
-        initialCenter: LatLng(-7.756165, 110.375403),
-        // initialCenter: LatLng(48.8566, 2.3522),
+        initialCenter: LatLng(-7.756165, 110.375403), // Sleman, Yogyakarta
         initialZoom: 12,
       ),
       children: [
