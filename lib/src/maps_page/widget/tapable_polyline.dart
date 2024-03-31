@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
+import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
 
 class TappablePolyline extends StatelessWidget {
   const TappablePolyline({super.key});
@@ -29,7 +30,11 @@ class TappablePolyline extends StatelessWidget {
       polylines: polylines,
       onTap: (polylines, tapPosition) {
         // TODO: Handle polyline tap
-        print('Polyline tapped');
+        showGeneralDialog(
+            context: context,
+            pageBuilder: (context, animation1, animation2) {
+              return const ShowDialogPopUp();
+            });
       },
     );
   }
