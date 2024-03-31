@@ -1,3 +1,3 @@
 # kunci_determinasi
 
-A new Flutter project.
+Backend fitur map di aplikasi Kunci Determinasi BRIN.
