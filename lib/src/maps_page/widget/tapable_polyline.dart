@@ -9,7 +9,7 @@ class TappablePolyline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const GeoJSONParser geoMap = GeoJSONParser();
+    const GeoParser geoMap = GeoParser();
     final List<List<LatLng>> listOfLatLng = geoMap.getListOfLatLng();
     final List<TaggedPolyline> polylines = [];
 
