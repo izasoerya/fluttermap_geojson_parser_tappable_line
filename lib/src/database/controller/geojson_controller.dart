@@ -2,13 +2,29 @@ import 'dart:convert';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'package:kunci_determinasi/src/database/models/dart_data_sleman.dart';
+import 'package:kunci_determinasi/src/database/models/dart_dummy.dart';
+
+String dataGeoJSON = '';
 
 class GeoParser {
-  const GeoParser();
+  const GeoParser({required this.file});
+  final int file;
+
   static final geoJsonParserLib = GeoJsonParser();
 
   List<List<LatLng>> getListOfLatLng() {
     List<List<LatLng>> listOfLineString = [];
+    switch (file) {
+      case 1:
+        dataGeoJSON = dataSleman;
+        break;
+      case 2:
+        dataGeoJSON = dataDummy;
+        break;
+      default:
+        dataGeoJSON = dataSleman;
+        break;
+    }
     final parsedJSON = jsonDecode(dataGeoJSON) as Map<String, dynamic>;
     final features = parsedJSON['features'] as List;
 

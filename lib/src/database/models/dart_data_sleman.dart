@@ -1,4 +1,4 @@
-String dataGeoJSON = '''
+String dataSleman = '''
 {
 "type": "FeatureCollection",
 "name": "ADMIN_LN_ALL_SLEMAN_Proj",
