@@ -19,15 +19,11 @@ class _MapsAPIState extends State<MapsAPI> {
         initialZoom: 12,
       ),
       children: [
+        const TappablePolyline(),
         TileLayer(
           urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'com.example.app',
         ),
-        const TappablePolyline(),
-        RichAttributionWidget(attributions: [
-          TextSourceAttribution('© OpenStreetMap contributors',
-              onTap: () => 'https://www.openstreetmap.org/copyright'),
-        ]),
       ],
     );
   }

@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'package:kunci_determinasi/src/database/models/dart_data_sleman.dart';
 import 'package:kunci_determinasi/src/database/models/dart_dummy.dart';
@@ -10,8 +7,8 @@ class GeoParser {
   final int file;
 
   static final parser = GeoJsonParser();
-
   List<dynamic> getListOfLatLng() {
+    // dynamic is either polyline or polygon
     switch (file) {
       case 1:
         parser.parseGeoJsonAsString(dataSleman);
@@ -20,18 +17,6 @@ class GeoParser {
         parser.parseGeoJsonAsString(dataDummy);
         return parser.polygons;
     }
-    return parser.polylines;
-  }
-
-  List<LatLng> _convertLineString(List<dynamic> coordinates) {
-    return coordinates
-        .map((coords) => LatLng(coords[1] as double, coords[0] as double))
-        .toList();
-  }
-
-  List<LatLng> _convertPolygon(List<dynamic> coordinates) {
-    return coordinates
-        .map((coords) => LatLng(coords[1] as double, coords[0] as double))
-        .toList();
+    return parser.polylines; // should not be reached
   }
 }
