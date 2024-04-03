@@ -1,16 +1,18 @@
 import 'dart:convert';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'package:kunci_determinasi/src/database/models/dart_data_sleman.dart';
 import 'package:kunci_determinasi/src/database/models/dart_dummy.dart';
 
 String dataGeoJSON = '';
+List<Polygon> polygon = [];
 
 class GeoParser {
   const GeoParser({required this.file});
   final int file;
 
-  static final geoJsonParserLib = GeoJsonParser();
+  static final parser = GeoJsonParser();
 
   List<List<LatLng>> getListOfLatLng() {
     List<List<LatLng>> listOfLineString = [];
@@ -20,39 +22,37 @@ class GeoParser {
         break;
       case 2:
         dataGeoJSON = dataDummy;
-        break;
-      default:
-        dataGeoJSON = dataSleman;
+        parser.parseGeoJsonAsString(dataGeoJSON);
         break;
     }
-    final parsedJSON = jsonDecode(dataGeoJSON) as Map<String, dynamic>;
-    final features = parsedJSON['features'] as List;
+    if (file == 1) {
+      final parsedJSON = jsonDecode(dataGeoJSON) as Map<String, dynamic>;
+      final features = parsedJSON['features'] as List;
 
-    for (final feature in features) {
-      final geometry = feature['geometry'];
-      final geometryType = geometry['type'].toString();
-      final coordinates = geometry['coordinates'];
+      for (final feature in features) {
+        final geometry = feature['geometry'];
+        final geometryType = geometry['type'].toString();
+        final coordinates = geometry['coordinates'];
 
-      switch (geometryType) {
-        case 'MultiLineString':
-          for (final line in coordinates) {
-            final lineString = _convertLineString(line);
+        switch (geometryType) {
+          case 'MultiLineString':
+            for (final line in coordinates) {
+              final lineString = _convertLineString(line);
+              listOfLineString.add(lineString);
+            }
+            break;
+          case 'Polygon':
+            break;
+          case 'LineString':
+            final lineString = _convertLineString(coordinates);
             listOfLineString.add(lineString);
-          }
-          break;
-        case 'Polygon':
-          final lineString = _convertPolygon(coordinates[0]);
-          listOfLineString.add(lineString);
-          break;
-        case 'LineString':
-          final lineString = _convertLineString(coordinates);
-          listOfLineString.add(lineString);
-          break;
-        default:
-          // Handle unknown geometry types or other cases
-          break;
+            break;
+          default:
+            break;
+        }
       }
     }
+    polygon = parser.polygons;
 
     return listOfLineString;
   }
