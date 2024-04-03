@@ -7,25 +7,23 @@ import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
 
 class TappablePolyline extends StatelessWidget {
   const TappablePolyline({super.key});
-  final int selectFile = 2;
+  final int selectFile = 1;
 
   @override
   Widget build(BuildContext context) {
-    final GeoParser geoMap = GeoParser(file: selectFile);
+    final GeoParser parser = GeoParser(file: selectFile);
     if (selectFile == 1) {
-      final List<TaggedPolyline> polylines = [];
-      final List<List<LatLng>> listOfLatLng = geoMap.getListOfLatLng();
+      List<TaggedPolyline> polylines = [];
 
-      for (int i = 0; i < listOfLatLng.length; i++) {
-        final List<LatLng> coordinates = listOfLatLng[i];
-        polylines.add(
-          TaggedPolyline(
-            points: coordinates,
-            color: Colors.blue,
-            strokeWidth: 2.5,
-          ),
-        );
+      final dataPolyline = parser.getListOfLatLng();
+      for (var i = 0; i < dataPolyline.length; i++) {
+        final polyline = dataPolyline[i] as Polyline;
+        polylines.add(TaggedPolyline(
+          color: Colors.blue,
+          points: polyline.points,
+        ));
       }
+
       return TappablePolylineLayer(
         polylines: polylines,
         onTap: (polylines, tapPosition) {
@@ -38,8 +36,9 @@ class TappablePolyline extends StatelessWidget {
         },
       );
     }
-    geoMap.getListOfLatLng();
-    return PolygonLayer(polygons: polygon);
+    var data = parser.getListOfLatLng();
+    var polygons = data.cast<Polygon>().toList();
+    return PolygonLayer(polygons: polygons);
 
     // TODO: IMPLEMENT FILLING THE POLYLINES
   }
