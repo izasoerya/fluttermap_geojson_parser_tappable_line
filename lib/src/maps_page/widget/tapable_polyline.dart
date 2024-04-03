@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart';
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
