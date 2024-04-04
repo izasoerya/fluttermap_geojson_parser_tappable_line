@@ -9,12 +9,13 @@ class TappablePolyline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const GeoParser parser = GeoParser(file: 1);
+    const GeoParser parser = GeoParser(file: 1); // data sleman (polyline)
     List<TaggedPolyline> polylines = [];
 
-    final dataPolyline = parser.getListOfLatLng();
+    final dataPolyline = parser
+        .getListOfLatLng(); // actually return List<Polyline> instead of List<dynamic>
     for (var i = 0; i < dataPolyline.length; i++) {
-      final polyline = dataPolyline[i] as Polyline;
+      final polyline = dataPolyline[i] as Polyline; // cast to Polyline
       polylines.add(TaggedPolyline(
         color: Colors.blue,
         points: polyline.points,
@@ -24,7 +25,6 @@ class TappablePolyline extends StatelessWidget {
     return TappablePolylineLayer(
       polylines: polylines,
       onTap: (polylines, tapPosition) {
-        // TODO: Handle polyline tap
         showGeneralDialog(
             context: context,
             pageBuilder: (context, animation1, animation2) {
@@ -32,7 +32,5 @@ class TappablePolyline extends StatelessWidget {
             });
       },
     );
-
-    // TODO: IMPLEMENT FILLING THE POLYLINES
   }
 }
