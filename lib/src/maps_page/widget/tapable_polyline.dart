@@ -6,38 +6,32 @@ import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
 
 class TappablePolyline extends StatelessWidget {
   const TappablePolyline({super.key});
-  final int selectFile = 1;
 
   @override
   Widget build(BuildContext context) {
-    final GeoParser parser = GeoParser(file: selectFile);
-    if (selectFile == 1) {
-      List<TaggedPolyline> polylines = [];
+    const GeoParser parser = GeoParser(file: 1);
+    List<TaggedPolyline> polylines = [];
 
-      final dataPolyline = parser.getListOfLatLng();
-      for (var i = 0; i < dataPolyline.length; i++) {
-        final polyline = dataPolyline[i] as Polyline;
-        polylines.add(TaggedPolyline(
-          color: Colors.blue,
-          points: polyline.points,
-        ));
-      }
-
-      return TappablePolylineLayer(
-        polylines: polylines,
-        onTap: (polylines, tapPosition) {
-          // TODO: Handle polyline tap
-          showGeneralDialog(
-              context: context,
-              pageBuilder: (context, animation1, animation2) {
-                return const ShowDialogPopUp();
-              });
-        },
-      );
+    final dataPolyline = parser.getListOfLatLng();
+    for (var i = 0; i < dataPolyline.length; i++) {
+      final polyline = dataPolyline[i] as Polyline;
+      polylines.add(TaggedPolyline(
+        color: Colors.blue,
+        points: polyline.points,
+      ));
     }
-    var data = parser.getListOfLatLng();
-    var polygons = data as List<Polygon>;
-    return PolygonLayer(polygons: polygons);
+
+    return TappablePolylineLayer(
+      polylines: polylines,
+      onTap: (polylines, tapPosition) {
+        // TODO: Handle polyline tap
+        showGeneralDialog(
+            context: context,
+            pageBuilder: (context, animation1, animation2) {
+              return const ShowDialogPopUp();
+            });
+      },
+    );
 
     // TODO: IMPLEMENT FILLING THE POLYLINES
   }

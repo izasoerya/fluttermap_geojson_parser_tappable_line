@@ -17,10 +17,10 @@ enum ListGeoJSON {
 
 class MapsAPI extends StatelessWidget {
   const MapsAPI({super.key});
+  static const selectedFile = ListGeoJSON.dataSleman;
 
   @override
   Widget build(BuildContext context) {
-    const selectedFile = ListGeoJSON.dataSleman;
     Widget finalData = selectedFile == ListGeoJSON.dataSleman
         ? const TappablePolyline()
         : const TappablePolygon();
