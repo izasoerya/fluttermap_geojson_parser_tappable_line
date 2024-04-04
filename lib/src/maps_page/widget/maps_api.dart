@@ -1,6 +1,7 @@
-import 'package:latlong2/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geodesy/geodesy.dart';
+
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polyline.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polygon.dart';
@@ -16,6 +17,16 @@ enum ListGeoJSON {
   dataDummy, // (polygon)
 }
 
+void onPolygon(LatLng point) {
+  dataPolygon.forEach((element) {
+    bool isGeoPointInPolygon =
+        Geodesy().isGeoPointInPolygon(point, element.points);
+    if (isGeoPointInPolygon == true) {
+      print("pressed!");
+    }
+  });
+}
+
 class MapsAPI extends StatelessWidget {
   const MapsAPI({super.key});
   static const selectedFile = ListGeoJSON.dataDummy;
@@ -26,11 +37,16 @@ class MapsAPI extends StatelessWidget {
     switch (selectedFile) {
       case ListGeoJSON.dataSleman:
         var dataPolyline = const GeoParser(file: 1).getListOfLatLng();
-        finalData = TappablePolyline(data: dataPolyline);
+        finalData = TappablePolyline(
+          data: dataPolyline,
+        );
         break;
       case ListGeoJSON.dataDummy:
         var dataPolygon = const GeoParser(file: 2).getListOfLatLng();
-        finalData = TappablePolygon(data: dataPolygon);
+        finalData = TappablePolygon(
+          data: dataPolygon,
+          onPressed: onPolygon,
+        );
         break;
     }
 

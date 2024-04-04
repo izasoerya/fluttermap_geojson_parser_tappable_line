@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geodesy/geodesy.dart';
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
 
 var dataPolygon = const GeoParser(file: 2).getListOfLatLng();
 
-void onPolygon(LatLng point) {
-  dataPolygon.forEach((element) {
-    bool isGeoPointInPolygon =
-        Geodesy().isGeoPointInPolygon(point, element.points);
-    if (isGeoPointInPolygon == true) {
-      print("pressed!");
-    }
-  });
-}
-
 class TappablePolygon extends StatefulWidget {
-  const TappablePolygon({super.key, required this.data});
+  const TappablePolygon({
+    super.key,
+    required this.data,
+    required this.onPressed,
+  });
   final List<dynamic> data;
+  final void Function(LatLng) onPressed;
 
   @override
   State<TappablePolygon> createState() => _TappablePolygonState();

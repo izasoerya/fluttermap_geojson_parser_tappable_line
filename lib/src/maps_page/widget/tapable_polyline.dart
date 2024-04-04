@@ -5,8 +5,13 @@ import 'package:kunci_determinasi/src/database/controller/geojson_controller.dar
 import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
 
 class TappablePolyline extends StatelessWidget {
-  const TappablePolyline({super.key, required this.data});
+  const TappablePolyline({
+    super.key,
+    required this.data,
+    this.onPressed,
+  });
   final List<dynamic> data;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
