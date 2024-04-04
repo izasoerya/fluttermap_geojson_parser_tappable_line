@@ -4,6 +4,7 @@ import 'package:geodesy/geodesy.dart';
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
 
 var dataPolygon = const GeoParser(file: 2).getListOfLatLng();
+
 void onPolygon(LatLng point) {
   dataPolygon.forEach((element) {
     bool isGeoPointInPolygon =
@@ -14,9 +15,15 @@ void onPolygon(LatLng point) {
   });
 }
 
-class TappablePolygon extends StatelessWidget {
-  const TappablePolygon({super.key});
+class TappablePolygon extends StatefulWidget {
+  const TappablePolygon({super.key, required this.data});
+  final List<dynamic> data;
 
+  @override
+  State<TappablePolygon> createState() => _TappablePolygonState();
+}
+
+class _TappablePolygonState extends State<TappablePolygon> {
   @override
   Widget build(BuildContext context) {
     const GeoParser parser = GeoParser(file: 2);
