@@ -9,7 +9,7 @@ void onPolygon(LatLng point) {
     bool isGeoPointInPolygon =
         Geodesy().isGeoPointInPolygon(point, element.points);
     if (isGeoPointInPolygon == true) {
-      print(element.points);
+      print("pressed!");
     }
   });
 }

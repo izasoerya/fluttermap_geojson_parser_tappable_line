@@ -17,7 +17,7 @@ enum ListGeoJSON {
 
 class MapsAPI extends StatelessWidget {
   const MapsAPI({super.key});
-  static const selectedFile = ListGeoJSON.dataSleman;
+  static const selectedFile = ListGeoJSON.dataDummy;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +27,20 @@ class MapsAPI extends StatelessWidget {
 
     return FlutterMap(
       options: MapOptions(
-        initialCenter: LatLng(-7.756165, 110.375403), // Sleman, Yogyakarta
+        initialCenter:
+            const LatLng(-7.756165, 110.375403), // Sleman, Yogyakarta
         initialZoom: 12,
         onTap: (tapPosition, point) {
           onPolygon(point);
         },
       ),
       children: [
-        finalData,
         TileLayer(
-          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.app',
+          urlTemplate:
+              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', // NEVER MOVE THIS!
+          userAgentPackageName: 'com.example.app', // NEVER MOVE THIS!
         ),
+        finalData,
       ],
     );
   }
