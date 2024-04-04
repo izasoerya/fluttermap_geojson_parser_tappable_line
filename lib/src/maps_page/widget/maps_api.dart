@@ -19,13 +19,13 @@ enum ListGeoJSON {
 
 List<dynamic> finalData = [];
 void onPolygon(LatLng point) {
-  finalData.forEach((element) {
+  for (var element in finalData) {
     bool isGeoPointInPolygon =
         Geodesy().isGeoPointInPolygon(point, element.points);
     if (isGeoPointInPolygon == true) {
       print("pressed!");
     }
-  });
+  }
 }
 
 class MapsAPI extends StatelessWidget {
