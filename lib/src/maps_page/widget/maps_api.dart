@@ -17,8 +17,9 @@ enum ListGeoJSON {
   dataDummy, // (polygon)
 }
 
+List<dynamic> finalData = [];
 void onPolygon(LatLng point) {
-  dataPolygon.forEach((element) {
+  finalData.forEach((element) {
     bool isGeoPointInPolygon =
         Geodesy().isGeoPointInPolygon(point, element.points);
     if (isGeoPointInPolygon == true) {
@@ -33,19 +34,18 @@ class MapsAPI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget finalData;
+    Widget finalWidget;
     switch (selectedFile) {
       case ListGeoJSON.dataSleman:
-        var dataPolyline = const GeoParser(file: 1).getListOfLatLng();
-        finalData = TappablePolyline(
-          data: dataPolyline,
+        finalData = const GeoParser(file: 1).getListOfLatLng();
+        finalWidget = TappablePolyline(
+          data: finalData,
         );
         break;
       case ListGeoJSON.dataDummy:
-        var dataPolygon = const GeoParser(file: 2).getListOfLatLng();
-        finalData = TappablePolygon(
-          data: dataPolygon,
-          onPressed: onPolygon,
+        finalData = const GeoParser(file: 2).getListOfLatLng();
+        finalWidget = TappablePolygon(
+          data: finalData,
         );
         break;
     }
@@ -56,7 +56,7 @@ class MapsAPI extends StatelessWidget {
             const LatLng(-7.756165, 110.375403), // Sleman, Yogyakarta
         initialZoom: 12,
         onTap: (tapPosition, point) {
-          if (finalData is TappablePolygon) {
+          if (finalWidget is TappablePolygon) {
             onPolygon(point);
           }
         },
@@ -67,7 +67,7 @@ class MapsAPI extends StatelessWidget {
               'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', // NEVER MOVE THIS!
           userAgentPackageName: 'com.example.app', // NEVER MOVE THIS!
         ),
-        finalData,
+        finalWidget,
       ],
     );
   }
