@@ -4,12 +4,6 @@ import 'package:flutter_map_tappable_polyline/flutter_map_tappable_polyline.dart
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/popup_dialog.dart';
 
-///** @param
-/// selectFile is a variable that determines which file to be selected
-/// 1 is for dataSleman
-/// 2 is for dataDummy
-/// */
-
 class TappablePolyline extends StatelessWidget {
   const TappablePolyline({super.key});
   final int selectFile = 1;
@@ -42,7 +36,7 @@ class TappablePolyline extends StatelessWidget {
       );
     }
     var data = parser.getListOfLatLng();
-    var polygons = data.cast<Polygon>().toList();
+    var polygons = data as List<Polygon>;
     return PolygonLayer(polygons: polygons);
 
     // TODO: IMPLEMENT FILLING THE POLYLINES
