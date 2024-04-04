@@ -26,9 +26,12 @@ class MapsAPI extends StatelessWidget {
         : const TappablePolygon();
 
     return FlutterMap(
-      options: const MapOptions(
+      options: MapOptions(
         initialCenter: LatLng(-7.756165, 110.375403), // Sleman, Yogyakarta
         initialZoom: 12,
+        onTap: (tapPosition, point) {
+          onPolygon(point);
+        },
       ),
       children: [
         finalData,

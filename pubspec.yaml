@@ -12,6 +12,7 @@ dependencies:
   flutter_map: ^6.1.0
   flutter_map_geojson: ^1.0.6
   flutter_map_tappable_polyline: ^6.0.0
+  geodesy: ^0.10.2
   latlong2: ^0.9.1
 
 dev_dependencies:
