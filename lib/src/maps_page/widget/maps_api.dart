@@ -3,30 +3,16 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geodesy/geodesy.dart';
 
 import 'package:kunci_determinasi/src/database/controller/geojson_controller.dart';
+import 'package:kunci_determinasi/src/maps_page/widget/event_tap.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polyline.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polygon.dart';
+import 'package:kunci_determinasi/src/maps_page/widget/models.dart';
 
 ///**
 /// selectFile is a variable that determines which file to be selected
 /// 1 is for geojson dataSleman
 /// 2 is for geojson dataDummy
 ///**/
-
-enum ListGeoJSON {
-  dataSleman, // (polyline)
-  dataDummy, // (polygon)
-}
-
-List<dynamic> finalData = [];
-void onPolygon(LatLng point) {
-  for (var element in finalData) {
-    bool isGeoPointInPolygon =
-        Geodesy().isGeoPointInPolygon(point, element.points);
-    if (isGeoPointInPolygon == true) {
-      print("pressed!");
-    }
-  }
-}
 
 class MapsAPI extends StatelessWidget {
   const MapsAPI({super.key});
@@ -57,7 +43,7 @@ class MapsAPI extends StatelessWidget {
         initialZoom: 12,
         onTap: (tapPosition, point) {
           if (finalWidget is TappablePolygon) {
-            onPolygon(point);
+            const EventTap().polygonTap(point);
           }
         },
       ),
