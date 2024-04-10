@@ -27,7 +27,7 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
   final mapController = MapController();
   late final _animatedMapController = AnimatedMapController(
     vsync: this,
-    duration: const Duration(milliseconds: 500),
+    duration: const Duration(milliseconds: 750),
     curve: Curves.easeInOut,
   );
 
