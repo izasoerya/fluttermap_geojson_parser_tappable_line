@@ -10,7 +10,7 @@ class MapsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Maps Page'),
       ),
-      body: const MapsAPI(),
+      body: MapsAPI(),
     );
   }
 }

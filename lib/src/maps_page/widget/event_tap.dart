@@ -1,16 +1,10 @@
-import 'package:geodesy/geodesy.dart';
-import 'package:kunci_determinasi/src/maps_page/widget/models.dart';
+import "package:flutter/material.dart";
+import "package:kunci_determinasi/src/maps_page/screen/popup_dialog.dart";
 
-class EventTap {
-  const EventTap();
-
-  void polygonTap(LatLng point) {
-    for (var element in finalData) {
-      bool isGeoPointInPolygon =
-          Geodesy().isGeoPointInPolygon(point, element.points);
-      if (isGeoPointInPolygon == true) {
-        print("pressed!");
-      }
-    }
-  }
+void handleTap(BuildContext context) {
+  showGeneralDialog(
+    context: context,
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        const ShowDialogPopUp(),
+  );
 }

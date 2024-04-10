@@ -6,26 +6,23 @@ class ShowDialogPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        child: Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width * 0.2,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.blue,
-                width: 8,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('This is a dialog'),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("OK")),
-              ],
-            )));
+      child: Container(
+          height: MediaQuery.sizeOf(context).height * 0.7,
+          width: MediaQuery.sizeOf(context).width * 0.8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('This is a dialog'),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK")),
+            ],
+          )),
+    );
   }
 }
