@@ -73,7 +73,9 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
         initialZoom: 12,
         onTap: (tapPosition, point) {
           if (finalWidget is TappablePolygon && polygonTap(point)) {
-            _animatedMapController.animateTo(dest: point);
+            _animatedMapController.animateTo(
+              dest: LatLng(point.latitude - 0.1, point.longitude),
+            );
             handleTap(context);
           }
           if (finalWidget is TappablePolyline) {

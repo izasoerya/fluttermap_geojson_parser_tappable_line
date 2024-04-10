@@ -6,6 +6,7 @@ class ShowDialogPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: EdgeInsets.only(top: 100),
       child: Container(
           height: MediaQuery.sizeOf(context).height * 0.7,
           width: MediaQuery.sizeOf(context).width * 0.8,
