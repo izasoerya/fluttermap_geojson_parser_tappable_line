@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 class HalfCircleClipper extends CustomClipper<Path> {
@@ -23,12 +22,12 @@ class HalfCircleClipper extends CustomClipper<Path> {
 }
 
 class ShowDialogPopUp extends StatelessWidget {
-  const ShowDialogPopUp({Key? key}) : super(key: key);
+  const ShowDialogPopUp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.only(top: 110),
+      insetPadding: const EdgeInsets.only(top: 130),
       shadowColor: Colors.black,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.7,
@@ -36,20 +35,17 @@ class ShowDialogPopUp extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: ClipPath(
-          clipper: HalfCircleClipper(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('This is a dialog'),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text("OK"),
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('This is a dialog'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
         ),
       ),
     );

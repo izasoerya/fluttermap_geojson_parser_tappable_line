@@ -26,7 +26,7 @@ class MapsAPI extends StatefulWidget {
 
 class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
   final mapController = MapController();
-  LatLng point_map = LatLng(-7.120362, 110.36734);
+  LatLng point_map = const LatLng(-7.120362, 110.36734);
   late final _animatedMapController = AnimatedMapController(
     vsync: this,
     duration: const Duration(milliseconds: 750),
