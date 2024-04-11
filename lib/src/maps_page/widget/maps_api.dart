@@ -7,6 +7,7 @@ import 'package:kunci_determinasi/src/database/controller/geojson_controller.dar
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polyline.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/tapable_polygon.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/event_tap.dart';
+import 'package:kunci_determinasi/src/maps_page/screen/icon_mark.dart';
 import 'package:kunci_determinasi/src/maps_page/widget/models.dart';
 
 ///**
@@ -25,6 +26,7 @@ class MapsAPI extends StatefulWidget {
 
 class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
   final mapController = MapController();
+  LatLng point_map = LatLng(-7.120362, 110.36734);
   late final _animatedMapController = AnimatedMapController(
     vsync: this,
     duration: const Duration(milliseconds: 750),
@@ -72,24 +74,38 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
             : const LatLng(-7.098634, 110.269314), // Semarang
         initialZoom: 12,
         onTap: (tapPosition, point) {
+          point_map = point;
           if (finalWidget is TappablePolygon && polygonTap(point)) {
             _animatedMapController.animateTo(
+              zoom: 12,
+              rotation: 0,
               dest: LatLng(point.latitude - 0.1, point.longitude),
             );
             handleTap(context);
+            setState(() {});
           }
           if (finalWidget is TappablePolyline) {
-            // const EventTap().polylineTap(point);
+            // TODO: IMPLEMENT TAP FOR POLYLINE
           }
         },
       ),
       children: [
+        //**
+        //  Don't move TileLayer class, keep it on TOP OF CHILDREN!
+        //  if it not rendered first, the other will overlap
+        // */
         TileLayer(
-          urlTemplate:
-              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', // NEVER MOVE THIS!
-          userAgentPackageName: 'com.example.app', // NEVER MOVE THIS!
+          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.example.app',
         ),
         finalWidget,
+        AnimatedMarkerLayer(markers: [
+          AnimatedMarker(
+              point: point_map,
+              builder: (_, animation) {
+                return MapMarkIcon(animation: animation);
+              }),
+        ]),
       ],
     );
   }
