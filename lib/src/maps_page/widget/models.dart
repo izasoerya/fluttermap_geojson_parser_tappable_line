@@ -1,6 +1,6 @@
 enum ListGeoJSON {
   dataSleman, // (polyline)
-  dataDummy, // (polygon)
+  dataSemarang, // (polygon)
 }
 
 List<dynamic> finalData = [];

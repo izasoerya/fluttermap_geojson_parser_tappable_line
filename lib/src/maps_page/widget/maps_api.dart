@@ -13,12 +13,12 @@ import 'package:kunci_determinasi/src/maps_page/widget/models.dart';
 ///**
 /// selectFile is a variable that determines which file to be selected
 /// 1 is for geojson dataSleman
-/// 2 is for geojson dataDummy
+/// 2 is for geojson dataSemarang
 ///**
 
 class MapsAPI extends StatefulWidget {
   const MapsAPI({super.key});
-  static const selectedFile = ListGeoJSON.dataDummy;
+  static const selectedFile = ListGeoJSON.dataSemarang;
 
   @override
   State<MapsAPI> createState() => _MapsAPIState();
@@ -26,7 +26,7 @@ class MapsAPI extends StatefulWidget {
 
 class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
   final mapController = MapController();
-  LatLng point_map = const LatLng(-7.120362, 110.36734);
+  LatLng initPoint = const LatLng(-7.120362, 110.36734);
   late final _animatedMapController = AnimatedMapController(
     vsync: this,
     duration: const Duration(milliseconds: 750),
@@ -47,7 +47,7 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    Widget finalWidget;
+    Widget finalWidget = Container();
     switch (MapsAPI.selectedFile) {
       case ListGeoJSON.dataSleman:
         finalData = const GeoParser(file: 1).getListOfLatLng();
@@ -55,11 +55,12 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
           data: finalData,
         );
         break;
-      case ListGeoJSON.dataDummy:
+      case ListGeoJSON.dataSemarang:
         finalData = const GeoParser(file: 2).getListOfLatLng();
         finalWidget = TappablePolygon(
           data: finalData,
         );
+        print(geojsonProperty);
         break;
     }
 
@@ -74,7 +75,7 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
             : const LatLng(-7.098634, 110.269314), // Semarang
         initialZoom: 12,
         onTap: (tapPosition, point) {
-          point_map = point;
+          initPoint = point;
           if (finalWidget is TappablePolygon && polygonTap(point)) {
             _animatedMapController.animateTo(
               zoom: 12,
@@ -101,7 +102,7 @@ class _MapsAPIState extends State<MapsAPI> with TickerProviderStateMixin {
         finalWidget,
         AnimatedMarkerLayer(markers: [
           AnimatedMarker(
-              point: point_map,
+              point: initPoint,
               builder: (_, animation) {
                 return MapMarkIcon(animation: animation);
               }),
